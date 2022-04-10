@@ -1,0 +1,14 @@
+.btn-admin-panel-fab{
+    background-color: $primary !important;
+    color:$tertiary !important;
+    &:hover {    
+        background-color: $tertiary !important;
+        color:$primary !important;
+    }
+}
+.btn-admin-panel{
+    display:flex;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}

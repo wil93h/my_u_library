@@ -1,0 +1,78 @@
+.admin-generator-papers{
+    display: grid;  
+    grid-template-columns: auto auto auto auto auto;
+    justify-items: center;
+    justify-content: center;
+ 
+    // grid-auto-rows: minmax(100px, auto);
+    // grid-template-columns: repeat(3, 1fr);
+    // grid-gap: 10px;
+}
+.admin-title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.footer-admin-first-name{
+    color: $quinary;
+    width: 160px;
+    max-width: 160px;
+    min-width: 140px;
+    max-height: 50px;
+    height: inherit;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.paper-first-last-name{
+    color: $quinary !important;
+    text-shadow: 1px 1.5px 2px rgba(247, 5, 255, 0.699);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: nowrap;
+    max-width:150px;
+    max-height: 150px;
+    border-radius: 10px !important;
+    &:hover {
+        min-width: 160px;
+        max-height: 160px;
+        transition: all .3s ease-out;
+    }
+    &:not(:hover){
+        transition: all .3s ease-in;
+        min-width: 150px ;
+        max-height: 150px;
+
+    }
+}
+.admin-form-add-user{
+    display: flex;
+    flex-direction: column;
+}
+.admin-form-name{
+    display: flex;
+    // justify-content: center;
+    // align-content: center;
+    // align-items: center;
+}
+.btn-view-more{
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    align-content: center;
+}
+.btn-view-more-fab{
+    background-color: $quinary !important;
+    color:$primary !important;
+    &:hover {    
+        background-color: $primary !important;
+        color:$quinary !important;
+    }
+}
+.logging-user-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
