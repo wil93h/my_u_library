@@ -36,9 +36,9 @@ export const AdminTemplate = ({params}) => {
     useEffect(() => {
         let adminView = getAdmin(id);
         if(adminView?.role === 'admin') {
-            setAdmin(adminView);
+            return setAdmin(adminView);
         }else{
-            history.push(`/`)
+            return history.push(`/`)
         }
     })
 

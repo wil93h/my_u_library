@@ -15,12 +15,15 @@ export const users = [
 ]
 
 export const books = [
-    { id:1 ,title: 'Operación Kazán',author: 'Vallés, Vicente', publishedYear:'1922',genre:'dramático'},
-    { id:2 ,title: 'El mentalista',author: 'Läckberg, Camilla', publishedYear:'0000',genre:'lírico'},
+    { id:1 ,title: 'Operación Kazán',author: 'Vallés, Vicente', publishedYear:'1922',genre:'dramático',qty:3},
+    { id:2 ,title: 'El mentalista',author: 'Läckberg, Camilla', publishedYear:'0000',genre:'lírico',qty:2},
 ]
 
 export const getAdmin = (id) =>{
     return admins.find(result => result.id == id) || console.log('error')
+}
+export const getUser = (id) =>{
+    return users.find(result => result.id == id) || console.log('error')
 }
 export const getRole = [
     {id: '1',name:'admin'},

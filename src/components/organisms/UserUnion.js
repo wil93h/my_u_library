@@ -1,10 +1,19 @@
 import React from 'react'
 import { UserPanel } from '../molecules/UserPanel'
+import { AppBarCustom } from '../atoms/AppBarCustom';
 
-export const UserUnion = () => {
+export const UserUnion = ({handle, variables}) => {
+    const {user} =variables;
+
     return (
-        <>
-            <UserPanel/>
-        </>
+        <div>
+            <AppBarCustom
+                user ={user}
+            />
+            <UserPanel
+                handle = { handle }
+                variables = { variables }
+            />
+        </div>
     )
 }
