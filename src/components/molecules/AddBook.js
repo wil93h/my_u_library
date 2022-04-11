@@ -36,7 +36,6 @@ export const AddBook = ({handle,values,errors}) => {
                     value = { publishedYear }
                     label ='Published Year'
                     onChange = { handle }
-                    type = { 'number' }
                     min = '150px' 
                     max = '175px'
                     errors = { errors['publishedYear'] }

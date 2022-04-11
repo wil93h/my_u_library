@@ -5,7 +5,7 @@ import { Logging } from '../pages/Logging';
 import { AdminView } from '../pages/AdminView';
 import { UserView } from '../pages/UserView';
 
-
+axios.defaults.baseURL = 'http://localhost:8080/api/';
 export const AppRouter = () => {
     return (
     <Router>

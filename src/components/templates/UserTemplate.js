@@ -19,22 +19,25 @@ export const UserTemplate = ({params}) => {
     const [user, setUser] = useState([])
     const [books, setBooks] = useState([])
     const [changing, setChanging] = useState(false)
-    const {id,firstName} = params;
+    const {id} = params;
     const history = useHistory();
     
     useEffect(() => {
-        let userView = getUser(id);
-        if(userView?.role === 'student') {
-            setUser(userView);
-        }else{
-            history.push(`/`)
-        }
-    })
-    console.log(Books,'B')
+        getUser(id)
+        .then((result) =>{
+            const { user } = result;
+            if(user?.role === 'student') {
+                setUser(user);
+            }else{
+                history.push(`/`)
+            }
+        })
+    },[])
+  
     useEffect(() => {
         setBooks(Books);
     },[])
-    console.log(books,'b')
+
     const handleAdd = () => {
 
     }

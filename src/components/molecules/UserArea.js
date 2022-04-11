@@ -3,7 +3,7 @@ import Fab from '@mui/material/Fab';
 import { PaperCustom } from '../atoms/PaperCustom';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
-export const UserArea = ({handle,users}) => {
+export const UserArea = ({handle,students}) => {
   
   const [limit, setLimit] = useState(5);
   const handleLimit = () => { 
@@ -12,9 +12,9 @@ export const UserArea = ({handle,users}) => {
   
   const handleViewMore = () => {
     let count = 0;
-    if(users?.length > 0 ){
+    if(students?.length > 0 ){
         return (
-            users?.map((admin) => {
+            students?.map((admin) => {
                 count++;
                 if(count < limit){ 
                     return (
@@ -24,7 +24,7 @@ export const UserArea = ({handle,users}) => {
                             handle = { handle }
                             firstName = { admin.firstName }
                             lastName = { admin.lastName }
-                            color = { admin.color }
+                            color = { admin.color || "#FA8072"}
                         />)
                 }else if(limit === count){
                     return (
@@ -46,7 +46,7 @@ export const UserArea = ({handle,users}) => {
 }
     return (
     <div>
-        <h1 className="admin-title mt-10 mb-5">{users?.length <= 1? 'Student':'Students'}</h1>
+        <h1 className="admin-title mt-10 mb-5">{students?.length <= 1? 'Student':'Students'}</h1>
         <div className="admin-generator-papers" >
             {handleViewMore()}
         </div>

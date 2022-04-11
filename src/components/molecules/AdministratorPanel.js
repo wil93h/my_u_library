@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -16,14 +16,15 @@ import { AddUser } from './AddUser';
 import { AddBook } from './AddBook';
 import { AutoCompleteCustom } from '../atoms/AutoCompleteCustom';
 import { getUsers } from '../../utils/variables'
+import  {adapterUser}  from '../../adapters/createAdapterAutoComplete'
 
 export const AdministratorPanel = ({handle, variables}) => {
-    
     const {  values:valuesInput, valuesAC, admin, errors } = variables;
-    
-    let color = admin?.color ? admin.color : '#00000'
-    const { handleInputChange, handleInputChangeAC, handleSaveUser, handleSaveBook, handleFindUserBook} = handle;
+    const [student, setStudent] = useState([])
     const [value, setValue] = useState(0);
+    const { handleInputChange, handleInputChangeAC, handleSaveUser, handleSaveBook, handleFindUserBook} = handle;
+
+    let color = admin?.color ? admin.color : '#00000'
     const style = {
         position: "absolute",
         top: "50%",
@@ -36,6 +37,17 @@ export const AdministratorPanel = ({handle, variables}) => {
         p: 4,
     
     };
+    useEffect(() => {
+        getUsers()
+        .then(users => { 
+            let studentsVar = '';
+            users.students.map(student=>{ 
+                return studentsVar=([adapterUser(student),...studentsVar])
+            })
+            setStudent(studentsVar);
+        })
+    }, [])
+    
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -68,7 +80,7 @@ export const AdministratorPanel = ({handle, variables}) => {
             label: 'Add',
         },
         ];
-        
+
     return (
         <div>
             <Box sx={style}>
@@ -84,9 +96,9 @@ export const AdministratorPanel = ({handle, variables}) => {
                             aria-label="full width tabs example"
                             bgcolor = { '#406d96' }
                         >
-                            <Tab label="Return book to library" {...a11yProps(0)} />
-                            <Tab label="Add Book" {...a11yProps(1)} />
-                            <Tab label="Add User" {...a11yProps(2)} />
+                            <Tab label="Add User" {...a11yProps(1)} />
+                            <Tab label="Add Book" {...a11yProps(2)} />
+                            <Tab label="Return book to library" {...a11yProps(2)} />
                             </Tabs>
                     </AppBar>
                     <SwipeableViews
@@ -95,17 +107,11 @@ export const AdministratorPanel = ({handle, variables}) => {
                         onChangeIndex={handleChange}
                     >
                         <TabPanel value={value} index={0}>
-                            <AutoCompleteCustom
-                                id = {'searchUser'}
-                                name = {'searchUser'}
-                                value = {valuesAC.searchUser}
-                                label = {'User'}
-                                setHandle = {handleInputChangeAC}
-                                map ={ getUsers() }
-                                min = '100px' 
-                                max = '250px'
-                                helper  = { errors.errors['searchUser'] }
-                            />
+                            <AddUser
+                                handle = { handleInputChange }
+                                values = { valuesInput }
+                                errors = { errors.errors }
+                            />  
                         </TabPanel>
                         <TabPanel value={value} index={1}>
                                 <AddBook
@@ -115,11 +121,17 @@ export const AdministratorPanel = ({handle, variables}) => {
                                 />
                         </TabPanel>
                         <TabPanel value={value} index={2}>
-                                <AddUser
-                                    handle = { handleInputChange }
-                                    values = { valuesInput }
-                                    errors = { errors.errors }
-                                />  
+                            <AutoCompleteCustom
+                                id = {'searchUser'}
+                                name = {'searchUser'}
+                                value = {valuesAC.searchUser}
+                                label = {'User'}
+                                setHandle = {handleInputChangeAC}
+                                map ={ student }
+                                min = '100px' 
+                                max = '250px'
+                                helper  = { errors.errors['searchUser'] }
+                            />
                         </TabPanel>
                     </SwipeableViews>
                     <div className="btn-admin-panel">

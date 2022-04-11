@@ -4,7 +4,7 @@ import { UserArea } from '../molecules/UserArea'
 
 export const LoggingUnion = ({handle ,variables}) => {
     const {handleViewAdmin,handleViewUser} = handle;
-    const {users,admins} = variables;
+    const {students,admins} = variables;
     return (
         <div>
             <div  className="logging-container">
@@ -16,7 +16,7 @@ export const LoggingUnion = ({handle ,variables}) => {
             <div className="logging-container">
                 <UserArea
                     handle = { handleViewUser }
-                    users = { users }
+                    students = { students }
                 />
             </div>
         </div>

@@ -4,7 +4,6 @@ import { CardCustom } from '../atoms/CardCustom'
 
 export const BookList = ({handle,books,errors}) => {
     const {addBook, removeBook} = handle;
-    console.log(books,'bb')
     return (
             <div className="user-book-list">
                 {books.length > 0?

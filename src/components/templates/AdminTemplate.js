@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { AdminUnion } from '../organisms/AdminUnion'
-import { getAdmin } from '../../utils/variables'
+import { getUser } from '../../utils/variables'
 import { useForm } from '../../hooks/useForm'
 import { useFormAutoComplete } from '../../hooks/useFromAutoComplete'
+import postData from '../../service/postData'
 
 const inputNames = {
     //user
@@ -29,26 +30,40 @@ export const AdminTemplate = ({params}) => {
     const [ values, handleInputChange, setValue ] = useForm(inputNames);
     const [ valuesAC, handleInputChangeAC, setValueAC ] = useFormAutoComplete(autoCompleteInputs);
     const [admin, setAdmin] = useState()
-
-    const {id,firstName} = params;
+    const {firstName,lastName,email,role,title,author,publishedYear,genre} = values;
+    const {id} = params;
     const history = useHistory();
 
     useEffect(() => {
-        let adminView = getAdmin(id);
-        if(adminView?.role === 'admin') {
-            return setAdmin(adminView);
-        }else{
-            return history.push(`/`)
-        }
-    })
+        getUser(id)
+        .then((result) =>{
+            const { user } = result;
+            if(user?.role === 'admin') {
+                setAdmin(user);
+            }else{
+                history.push(`/`)
+            }
+        })
+       
+    },[])
 
-    const handleSaveUser = (user) => {
-        console.log(values)
+    const handleSaveUser = async() => {
+        let result = await postData('users',{firstName,lastName,email,role})
+        if(result?.data?.success){
+            alert(result.data.msg);
+            setValue(inputNames);
+        }
+        console.log(result,'resultSaveUser');
     }
-    const handleSaveBook = (book) => {
-        console.log(values)
+    const handleSaveBook = async() => {
+        let result = await postData('books',{title,author,publishedYear,genre})
+        if(result?.data?.success){
+            alert(result.data.msg);
+            setValue(inputNames);
+        }
+        console.log(result,'resultSaveUser');
     }
-    const handleFindUserBook = (user) => {
+    const handleFindUserBook = () => {
         console.log(valuesAC)
     }
     const handle = {
